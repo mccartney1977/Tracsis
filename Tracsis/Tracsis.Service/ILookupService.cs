@@ -1,10 +1,10 @@
-﻿using System;
-
-namespace Tracsis.Service
+﻿namespace Tracsis.Service
 {
     public interface ILookupService
     {
-        bool IsValid { get; set; }
         void Initialise(string fileName);
+        string Lookup(string locationCode);
+
+        bool HasData { get; }
     }
 }

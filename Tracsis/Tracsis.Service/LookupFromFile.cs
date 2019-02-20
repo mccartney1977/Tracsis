@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TracsisData;
 
 namespace Tracsis.Service
 {
@@ -8,22 +9,60 @@ namespace Tracsis.Service
     /// </summary>
     public class LookupFromFile : ILookupService
     {
-        private Dictionary<string, string> _Data { get; set; }
-
-        public bool IsValid { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        
+        private IDataContext _DataContext { get; set; }
+        private Dictionary<string, string> _LookupData { get; set; }
+                
+        /// <summary>
+        /// Initialise the data service from
+        /// </summary>
+        /// <param name="fileName"></param>
         public LookupFromFile()
         {
-            _Data = new Dictionary<string, string>();
+            _DataContext = new LookupContext();
+            _LookupData = new Dictionary<string, string>();
         }
 
         /// <summary>
-        /// Initialise the data from a valid text file.
+        /// Populate the lookup dictionary from the requested file.
         /// </summary>
         /// <param name="fileName"></param>
         public void Initialise(string fileName)
         {
-            throw new NotImplementedException();
+            if (!_DataContext.HasData)
+            {
+                _DataContext.SetData(fileName);
+                _LookupData = _DataContext.GetData();
+            }
+        }
+
+        /// <summary>
+        /// Find the location given the dictionary index.
+        /// </summary>
+        /// <param name="locationCode"></param>
+        /// <returns></returns>
+        public string Lookup(string locationCode)
+        {
+            string location = "";
+
+            if (!string.IsNullOrEmpty(locationCode))
+            {
+                // Get the location from the dictionary object.
+                _LookupData.TryGetValue(locationCode, out location);
+            }
+
+            return location;
+        }
+
+
+        /// <summary>
+        /// Determine if the service contains any data.
+        /// </summary>
+        public bool HasData
+        {
+            get
+            {
+                return _DataContext.HasData;
+            }
         }
     }
 }

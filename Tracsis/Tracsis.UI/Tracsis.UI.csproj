@@ -5,4 +5,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tracsis.Service\Tracsis.Service.csproj" />
+    <ProjectReference Include="..\TracsisData\TracsisData.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -4,35 +4,30 @@ using TracsisData.Entity;
 
 namespace TracsisData
 {
-    public class DataContext
+    public class LookupContext: IDataContext
     {
         // Dictionary object to store all look key/value data.
         private Dictionary<string, string> _LookupData { get; set; }
-        private string _FileName { get; set; }
 
-        public DataContext(string fileName)
+        public LookupContext()
         {
             // Initialise a new instance of data.
             _LookupData = new Dictionary<string, string>();
-            _FileName = fileName;
         }
 
         /// <summary>
         /// Check the file exists and that is of the correct file type.
         /// </summary>
-        private bool IsValidFile
+        private bool IsValidFile(string fileName)
         {
-            get
+            bool isValid = true;
+
+            if (File.Exists(fileName))
             {
-                bool isValid = true;
-
-                if (File.Exists(_FileName))
-                {
-                    isValid = true;
-                }
-
-                return isValid;
+                isValid = true;
             }
+
+            return isValid;
         }
 
         /// <summary>
@@ -42,7 +37,7 @@ namespace TracsisData
         public void SetData(string fileName)
         {
             // When lookup file is valid.
-            if (IsValidFile)
+            if (IsValidFile(fileName))
             {
                 // Open the file steam and read each data line.
                 using (var streamReader = File.OpenText(fileName))
@@ -58,6 +53,25 @@ namespace TracsisData
                         }
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Return all the lookup data that was read from the file.
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, string> GetData()
+        {
+            return _LookupData;
+        }
+
+        // Derived properties.
+        // Verify the service contains data.
+        public bool HasData
+        {
+            get
+            {
+                return _LookupData != null && _LookupData.Count > 0;
             }
         }
     }
