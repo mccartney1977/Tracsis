@@ -62,21 +62,12 @@ namespace Tracsis.Service.Output
         /// <param name="outputFile"></param>
         private void WriteToOutputFile(string outputFilePath)
         {
-            // If file already exists, delete it.
-            // **Possible security issues with file deletion.
-            if (File.Exists(outputFilePath))
-            {
-                File.Delete(outputFilePath);
-            }
-
-            // Create the output file.
-            File.Create(outputFilePath);
-
+            // Write to specified output file.
             using (StreamWriter outputFile = new StreamWriter(outputFilePath))
             {
                 foreach (var line in _Locations)
                 {
-                    outputFile.WriteLine(line);
+                    outputFile.Write($"{line}\n");
                 }
             }
         }
