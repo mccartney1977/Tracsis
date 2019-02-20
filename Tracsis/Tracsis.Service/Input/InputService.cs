@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace Tracsis.Service
+namespace Tracsis.Service.Input
 {
     /// <summary>
     /// Service to read input codes from a text file.

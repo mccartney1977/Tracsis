@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TracsisData;
 
-namespace Tracsis.Service
+namespace Tracsis.Service.Lookup
 {
     /// <summary>
     /// Concrete class to initialise the lookup service from a text file input.

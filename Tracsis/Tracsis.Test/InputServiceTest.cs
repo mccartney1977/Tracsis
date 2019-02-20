@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Tracsis.Service;
+using Tracsis.Service.Input;
 
 namespace Tracsis.Test
 {
