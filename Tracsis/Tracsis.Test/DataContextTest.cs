@@ -8,7 +8,7 @@ namespace Tracsis.Test
 {
     public class DataContextTest
     {
-        private Dictionary<string, string> _LookupData { get; set; }
+        private IDataContext _LookupData { get; set; }
         private bool _ExpectedHasData { get; set; }
 
         [SetUp]
@@ -23,8 +23,9 @@ namespace Tracsis.Test
         {
             // Arrange
             // Act
-            var _LookupData = new LookupContext("fileName");
-            var actualHasData = _LookupData;
+            var _LookupData = new LookupContext();
+            var actualHasData = _LookupData.HasData;
+
             // Assert
             Assert.AreEqual(_ExpectedHasData, actualHasData);
         }
