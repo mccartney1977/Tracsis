@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TracsisData;
 
 namespace Tracsis.Service
@@ -11,7 +10,7 @@ namespace Tracsis.Service
     {
         private IDataContext _DataContext { get; set; }
         private Dictionary<string, string> _LookupData { get; set; }
-                
+
         /// <summary>
         /// Initialise the data service from
         /// </summary>
@@ -52,7 +51,6 @@ namespace Tracsis.Service
 
             return location;
         }
-
 
         /// <summary>
         /// Determine if the service contains any data.

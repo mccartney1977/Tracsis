@@ -7,18 +7,24 @@ namespace Tracsis.UI
     internal class Program
     {
         private static ILookupService _LookupService { get; set; }
+        private static IInputService _InputService { get; set; }
+
         private static string _LookupFile = "";
         private static string _InputFile = "";
         private static string _OutputFile = "";
 
         private static void Main(string[] args)
         {
+            // Initialise dependency services.
+            _InputService = new InputService();
+            _LookupService = new LookupFromFile();
+
             // When arguments are pass correctly read and assignment them respectively.
             if (args != null && args.Length == 3)
             {
-                _LookupFile = args[1];
-                _InputFile = args[2];
-                _OutputFile = args[3];
+                _LookupFile = args[0];
+                _InputFile = args[1];
+                _OutputFile = args[2];
             }
             else
             {
@@ -32,16 +38,23 @@ namespace Tracsis.UI
             }
 
             // Validate files are of correct type and exist where relevent.
-            if(HasValidArguments())
+            if (HasValidArguments())
             {
-                // Initialise dependencies.
-                _LookupService = new LookupFromFile();
-
                 // Initialise the lookup service.
                 _LookupService.Initialise(_LookupFile);
                 if (_LookupService.HasData)
                 {
-                    //var locationName = _LookupService.Lookup(locationCode);
+                    _InputService.SetLocationCodes(_InputFile);
+
+                    if (_InputService.HasCodes)
+                    {
+                        var locationCodes = _InputService.GetLocationCodes();
+                        foreach (var locationCode in locationCodes)
+                        {
+                            var location = _LookupService.Lookup(locationCode);
+                            Console.WriteLine($"{locationCode} = {location}");
+                        }
+                    }
                 }
                 else
                 {
@@ -50,7 +63,7 @@ namespace Tracsis.UI
             }
 
             // Close application.
-            Console.WriteLine("Press any key to exit.");
+            Console.WriteLine("Press enter to exit.");
             Console.ReadLine();
         }
 

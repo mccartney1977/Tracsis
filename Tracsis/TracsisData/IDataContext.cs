@@ -6,7 +6,9 @@ namespace TracsisData
     public interface IDataContext
     {
         void SetData(string fileName);
+
         Dictionary<string, string> GetData();
+
         bool HasData { get; }
     }
 }

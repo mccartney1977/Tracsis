@@ -4,7 +4,7 @@ using TracsisData.Entity;
 
 namespace TracsisData
 {
-    public class LookupContext: IDataContext
+    public class LookupContext : IDataContext
     {
         // Dictionary object to store all look key/value data.
         private Dictionary<string, string> _LookupData { get; set; }

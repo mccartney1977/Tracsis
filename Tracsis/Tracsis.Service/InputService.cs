@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Tracsis.Service
 {
@@ -10,21 +9,47 @@ namespace Tracsis.Service
     /// </summary>
     public class InputService : IInputService
     {
-        private List<string> _InputCodes { get; set; }
+        private List<string> _LocationCodes { get; set; }
 
         public InputService()
         {
-            _InputCodes = new List<string>();
+            _LocationCodes = new List<string>();
         }
 
         /// <summary>
-        /// Read the inout file and place all codes into a list.
+        /// Read the input file and place all codes into a list, then enumerate.
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public IEnumerable<string> GetInputCodes(string filePath)
+        public void SetLocationCodes(string filePath)
         {
-            throw new NotImplementedException();
+            // When input file is exists.
+            if (File.Exists(filePath))
+            {
+                // Open the file steam and read each data line.
+                var lines = File.ReadAllLines(filePath);
+                if (lines != null)
+                {
+                    foreach (var line in lines)
+                    {
+                        // When line contains a valid string, trim then upper.
+                        if (!string.IsNullOrEmpty(line))
+                        {
+                            // Add code to the list.
+                            _LocationCodes.Add(line.Trim().ToUpper());
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get enumerated list of input codes.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetLocationCodes()
+        {
+            return _LocationCodes;
         }
 
         /// <summary>
@@ -34,7 +59,7 @@ namespace Tracsis.Service
         {
             get
             {
-                return _InputCodes.Count() > 0;
+                return _LocationCodes.Count() > 0;
             }
         }
     }

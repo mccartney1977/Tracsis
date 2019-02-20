@@ -7,7 +7,10 @@ namespace Tracsis.Service
     /// </summary>
     public interface IInputService
     {
-        IEnumerable<string> GetInputCodes(string filePath);
+        void SetLocationCodes(string filePath);
+
+        IEnumerable<string> GetLocationCodes();
+
         bool HasCodes { get; }
     }
 }
