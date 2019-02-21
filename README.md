@@ -2,6 +2,7 @@
 A test for Tracsis application
 
 TECH NOTES
+
 Developed as a .NetCore console application in visual studio 2017.
 
 Separated layers to assist scalability and testability.
@@ -9,6 +10,7 @@ Separated layers to assist scalability and testability.
 Unit tests on service/data layer.
 
 RUN APP
+
 Executable project is "LocationConverter", please build and run. Binary will accept 3 input args.
 
 DEV PLAN
