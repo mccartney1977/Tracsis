@@ -10,8 +10,9 @@ namespace Tracsis.Service.Output
         private List<string> _Locations { get; set; }
 
         public bool HasWarning { get; set; }
+        public bool CannotWriteFile { get; set; }
         public string Warning { get; set; }
-
+        
         public OutputToFile()
         {
             _Locations = new List<string>();
@@ -47,7 +48,8 @@ namespace Tracsis.Service.Output
                 // When at least one location has been matched.
                 if (_Locations.Any())
                 {
-                    WriteToOutputFile(outputFilePath);
+                    CannotWriteFile = WriteToOutputFile(outputFilePath);
+                    HasError = true;
                 }
                 else
                 {
@@ -60,16 +62,29 @@ namespace Tracsis.Service.Output
         /// Write all locations to an output file.
         /// </summary>
         /// <param name="outputFile"></param>
-        private void WriteToOutputFile(string outputFilePath)
+        private bool WriteToOutputFile(string outputFilePath)
         {
-            // Write to specified output file.
-            using (StreamWriter outputFile = new StreamWriter(outputFilePath))
+            bool cannotWriteFile = false;
+
+            // When can not write to the specified path.
+            // Catch the protential error and provide message for user.
+            try
             {
-                foreach (var line in _Locations)
+                // Write to specified output file.
+                using (StreamWriter outputFile = new StreamWriter(outputFilePath))
                 {
-                    outputFile.Write($"{line}\n");
+                    foreach (var line in _Locations)
+                    {
+                        outputFile.Write($"{line}\n");
+                    }
                 }
             }
+            catch (System.IO.DirectoryNotFoundException ex)
+            {
+                cannotWriteFile = true;
+            }
+
+            return cannotWriteFile;
         }
 
         /// <summary>

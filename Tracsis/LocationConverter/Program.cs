@@ -59,6 +59,10 @@ namespace LocationConverter
                                 Console.WriteLine("Output file successfully created.");
                             }
                         }
+                        else if (_OutputService.CannotWriteFile)
+                        {
+                            Console.WriteLine("Can not write file to specified location.");
+                        }
                         else
                         {
                             Console.WriteLine("Can not create output file.");
