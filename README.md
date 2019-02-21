@@ -5,13 +5,13 @@ TECH NOTES
 
 Developed as a .NetCore console application in visual studio 2017.
 
-Separated layers to assist scalability and testability.
+Separated layers to assist scale-ability and test-ability.
 
 Unit tests on service/data layer.
 
 RUN APP
 
-Executable project is "LocationConverter", please build and run. Binary will accept 3 input args.
+Executable project is "LocationConverter", please build and run. Binary will accept exactly 3 input args.
 
 DEV PLAN
 1. Create repository.
