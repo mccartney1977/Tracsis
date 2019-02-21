@@ -1,6 +1,10 @@
 # Tracsis
 A test for Tracsis application
 
+Tech Used
+Developed as a .NetCore console application in visual studio 2017.
+Unit tests on service/data layer.
+
 DEV PLAN
 1. Create repository.
 2. Setup basic console app project.
